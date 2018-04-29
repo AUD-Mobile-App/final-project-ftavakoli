@@ -11,16 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDjBSEYzyX7YqU6BPHMMt9kJdeLmUokQIY" />
+
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ItemListActivity" />
-        <activity android:name=".AddItemActivity" />
-        <activity android:name=".ItemInfoActivity"></activity>
+        <activity android:name=".ItemListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AddItemActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditItemActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignUpActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     //declaring the variables
-    Button loginBtn;
+    Button loginBtn, signupButton;
     EditText passwordEditTxt, emailEditTxt;
     TextView errorTxtView;
     //declaring instance of firebase
@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        signupButton = findViewById(R.id.signupButton);
         emailEditTxt = findViewById(R.id.emailEditText);
         passwordEditTxt = findViewById(R.id.passwordEditText);
         loginBtn = findViewById(R.id.loginButton);
@@ -44,21 +45,26 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 //calling a login function
                 if(emailEditTxt.getText().toString().equals("") && passwordEditTxt.getText().toString().equals(""))
-                    errorTxtView.setText("U have not provided any information!!!!!");
+                    errorTxtView.setText("Provided any information!!!!!");
                 else if(emailEditTxt.getText().toString().equals(""))
-                    errorTxtView.setText("Enter Your Email Address");
+                    errorTxtView.setText("Enter the Email Address");
                 else if(passwordEditTxt.getText().toString().equals(""))
-                    errorTxtView.setText("Enter Your Password!");
+                    errorTxtView.setText("Enter the Password!");
                     else
                 login(emailEditTxt.getText().toString(), passwordEditTxt.getText().toString());
             }
         });
 
 
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     //check if the user is login
@@ -67,6 +73,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = myFireBaseAuth.getCurrentUser();
         //currentUser.getUid();
+
+        if(currentUser != null)
+        {
+            Intent intent = new Intent(LoginActivity.this, ItemListActivity.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -92,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                     //if it fails Toast !
                     Log.d(TAG, "Faaaaaaiiiiillllllled!", task.getException());
                     //Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                    errorTxtView.setText("U R entering Wrong Information");
+                    errorTxtView.setText("Wrong Information");
                 }
             }
         });
